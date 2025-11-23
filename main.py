@@ -19,13 +19,7 @@ def get_first_three_numbers():
     return unique[:3]
 def get_last_three_sms(num:list):
     url = f"https://temp-number.com/temporary-numbers/United-Kingdom/{number}/1"
-    scraper = cloudscraper.create_scraper(
-        browser={
-            "browser": "chrome",
-            "platform": "windows",
-            "mobile": False
-        }
-    )
+    scraper = cloudscraper.create_scraper()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
