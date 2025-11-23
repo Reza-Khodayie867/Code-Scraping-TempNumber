@@ -45,5 +45,10 @@ def get_last_three_sms(num:list):
 if __name__ == "__main__":
     num = get_first_three_numbers()
     for number in num:
-        result = get_last_three_sms(number)[0]
-        print(result)
+        try:
+            msgs = get_last_three_sms(number)[0]
+            match = re.search(r'\b\d{6}\b', msgs)
+            code = match.group()
+            print(code)
+        except Exception as e:
+            print("Not Message!", e)
