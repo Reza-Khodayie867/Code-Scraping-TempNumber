@@ -17,13 +17,14 @@ def get_first_three_numbers():
             seen.add(m)
             unique.append(m)
     return unique[:3]
-def get_last_three_sms(num:list):
+
+def get_last_three_sms(number, sender_name:str):
     url = f"https://temp-number.com/temporary-numbers/United-Kingdom/{number}/1"
     scraper = cloudscraper.create_scraper()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/124.0.0.0 Safari/537.36"
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
     }
     resp = scraper.get(url, headers=headers, timeout=10)
     resp.raise_for_status()
@@ -31,16 +32,13 @@ def get_last_three_sms(num:list):
     text = soup.get_text(separator="\n")
     res = []
     text = text.split('From')
-    for tex in text:
-        if 'FACEBOOK'.lower() in tex.lower():
-            res.append(tex.strip())
-    return res
+    return [b.strip() for b in text if sender_name.lower() in b.lower()]
 
 if __name__ == "__main__":
     num = get_first_three_numbers()
     for number in num:
         try:
-            msgs = get_last_three_sms(number)[0]
+            msgs = get_last_three_sms(number, "Rubika")[0]
             match = re.search(r'\b\d{6}\b', msgs)
             code = match.group()
             print(code)
