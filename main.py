@@ -34,7 +34,7 @@ def get_last_three_sms(number, sender_name:str):
     text = text.split('From')
     return [b.strip() for b in text if sender_name.lower() in b.lower()]
 
-if __name__ == "__main__":
+def run():
     num = get_first_three_numbers()
     for number in num:
         try:
@@ -44,3 +44,5 @@ if __name__ == "__main__":
             print(code)
         except Exception as e:
             print("Not Message!", e)
+
+run()
